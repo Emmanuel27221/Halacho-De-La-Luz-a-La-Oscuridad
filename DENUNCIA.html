@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Denuncia de Delitos - Halachó, Yucatán</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a5276;
+            --secondary: #2980b9;
+            --accent: #e74c3c;
+            --light: #f8f9fa;
+            --dark: #2c3e50;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --info: #3498db;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans', sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 60px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: #f5f7fa;
+            transform: skewY(-3deg);
+            z-index: 1;
+        }
+        
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 2.8rem;
+            margin: 0 0 15px;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .emergency-banner {
+            background-color: var(--accent);
+            color: white;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin: 30px auto;
+            max-width: 900px;
+            display: flex;
+            align-items: center;
+            box-shadow: var(--box-shadow);
+            transform: translateY(-20px);
+            position: relative;
+            z-index: 3;
+        }
+        
+        .emergency-banner::before {
+            content: '⚠️';
+            margin-right: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .emergency-banner strong {
+            font-weight: 600;
+        }
+        
+        .denuncia-section {
+            background-color: white;
+            padding: 40px;
+            margin-bottom: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+        
+        .denuncia-section:hover {
+            box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+        }
+        
+        .section-title {
+            color: var(--primary);
+            border-bottom: 3px solid var(--secondary);
+            padding-bottom: 12px;
+            margin-bottom: 25px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1.8rem;
+            display: inline-block;
+        }
+        
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .option-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            border-top: 5px solid var(--secondary);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .option-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+        }
+        
+        .option-title {
+            color: var(--dark);
+            margin: 0 0 15px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .option-title::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: var(--secondary);
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        .contact-info {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .contact-icon {
+            margin-right: 12px;
+            color: var(--secondary);
+            font-size: 1.2rem;
+            min-width: 20px;
+            text-align: center;
+        }
+        
+        .btn-denuncia {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--secondary);
+            color: white;
+            padding: 12px 25px;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            margin-top: auto;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            width: fit-content;
+        }
+        
+        .btn-denuncia:hover {
+            background-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        .btn-denuncia::after {
+            content: '→';
+            margin-left: 8px;
+            transition: var(--transition);
+        }
+        
+        .btn-denuncia:hover::after {
+            transform: translateX(3px);
+        }
+        
+        .protection {
+            background: linear-gradient(135deg, #e8f4f8, #d4e6f1);
+            padding: 35px;
+            border-radius: var(--border-radius);
+            margin: 50px 0;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .protection-title {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1.6rem;
+        }
+        
+        .protection ul {
+            padding-left: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .protection li {
+            margin-bottom: 10px;
+            padding-left: 10px;
+            position: relative;
+        }
+        
+        .protection li::before {
+            content: '✓';
+            color: var(--success);
+            font-weight: bold;
+            position: absolute;
+            left: -15px;
+        }
+        
+        .faq-item {
+            margin-bottom: 25px;
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--info);
+        }
+        
+        .faq-question {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .faq-question::before {
+            content: '?';
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            background-color: var(--info);
+            color: white;
+            border-radius: 50%;
+            font-size: 0.9rem;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        
+        footer {
+            background: linear-gradient(135deg, var(--dark), #34495e);
+            color: white;
+            padding: 50px 0 30px;
+            margin-top: 60px;
+            text-align: center;
+            position: relative;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: #f5f7fa;
+            transform: skewY(3deg);
+            z-index: 1;
+        }
+        
+        footer .container {
+            position: relative;
+            z-index: 2;
+        }
+        
+        footer p {
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+        
+        footer p:first-child {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+        
+        .logo {
+            margin-bottom: 20px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            header p {
+                font-size: 1rem;
+            }
+            
+            .denuncia-section {
+                padding: 25px;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .emergency-banner {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .emergency-banner::before {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+        }
+        
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .denuncia-section, .protection, footer {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+        
+        .denuncia-section {
+            animation-delay: 0.1s;
+        }
+        
+        .protection {
+            animation-delay: 0.2s;
+        }
+        
+        footer {
+            animation-delay: 0.3s;
+        }
+
+        /* Nuevo estilo para el botón de regreso al menú */
+        .menu-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--primary);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            cursor: pointer;
+            z-index: 100;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+        
+        .menu-button:hover {
+            background-color: var(--secondary);
+            transform: scale(1.1) translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+        }
+        
+        .menu-button::after {
+            content: "Menú";
+            position: absolute;
+            top: -30px;
+            background-color: var(--dark);
+            color: white;
+            padding: 5px 10px;
+            border-radius: var(--border-radius);
+            font-size: 14px;
+            opacity: 0;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+        
+        .menu-button:hover::after {
+            opacity: 1;
+            top: -40px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Denuncia de Delitos en Halachó</h1>
+            <p>Canales seguros y confidenciales para reportar actividades ilícitas y contribuir a la seguridad de nuestra comunidad</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="emergency-banner">
+            <p><strong>⚠️ Atención:</strong> En caso de emergencia o delito en curso, marca inmediatamente al <strong>911</strong>.</p>
+        </div>
+
+        <div class="denuncia-section">
+            <h2 class="section-title">Canales de Denuncia</h2>
+            <p>Selecciona el método que mejor se adapte a tus necesidades. Todos los canales garantizan confidencialidad.</p>
+            
+            <div class="options-grid">
+                <div class="option-card">
+                    <h3 class="option-title">Denuncia Anónima - 32ª Zona Militar</h3>
+                    <div class="contact-info">
+                        <span class="contact-icon">📧</span>
+                        <div>
+                            <strong>Correo electrónico:</strong><br>
+                            <a href="mailto:denuncia.32zm@sedena.gob.mx">denuncia.32zm@sedena.gob.mx</a>
+                        </div>
+                    </div>
+                    <div class="contact-info">
+                        <span class="contact-icon">📞</span>
+                        <div>
+                            <strong>Teléfonos:</strong><br>
+                            985-85-63-912<br>
+                            985-10-631-59
+                        </div>
+                    </div>
+                    <p>Estos canales permiten denunciar actividades ilícitas como narcomenudeo, secuestro, extorsión y robo de hidrocarburos con total anonimato.</p>
+                    <a href="mailto:denuncia.32zm@sedena.gob.mx" class="btn-denuncia">Enviar denuncia</a>
+                </div>
+                
+                <div class="option-card">
+                    <h3 class="option-title">Denuncia Digital - Fiscalía General</h3>
+                    <div class="contact-info">
+                        <span class="contact-icon">🌐</span>
+                        <div>
+                            <strong>Formulario en línea:</strong><br>
+                            <a href="https://fge.yucatan.gob.mx/prevencion-del-delito/denuncia-anonima" target="_blank">fge.yucatan.gob.mx</a>
+                        </div>
+                    </div>
+                    <p>Sistema seguro para denuncias anónimas con seguimiento mediante folio electrónico. Recibirás actualizaciones sin comprometer tu identidad.</p>
+                    <a href="https://fge.yucatan.gob.mx/prevencion-del-delito/denuncia-anonima" class="btn-denuncia" target="_blank">Denunciar en línea</a>
+                </div>
+                
+                <div class="option-card">
+                    <h3 class="option-title">Denuncia Presencial - Policía Municipal</h3>
+                    <div class="contact-info">
+                        <span class="contact-icon">📍</span>
+                        <div>
+                            <strong>Dirección:</strong><br>
+                            Calle 20 SNSN, El Centro<br>
+                            Halachó, Yucatán 97830
+                        </div>
+                    </div>
+                    <div class="contact-info">
+                        <span class="contact-icon">📞</span>
+                        <div>
+                            <strong>Teléfono:</strong><br>
+                            999 987 6543
+                        </div>
+                    </div>
+                    <p><strong>Horario:</strong> 8:00 a 16:00 hrs de lunes a viernes. Atención especial para casos urgentes.</p>
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="protection">
+            <h2 class="protection-title">Protección para Denunciantes</h2>
+            <p>En Halachó contamos con mecanismos robustos para garantizar tu seguridad:</p>
+            <ul>
+                <li><strong>Reserva de identidad:</strong> Protección legal de tus datos personales</li>
+                <li><strong>Anonimato total:</strong> Canales especializados que no requieren identificación</li>
+                <li><strong>Seguimiento seguro:</strong> Mediante sistemas de folios electrónicos</li>
+                <li><strong>App "Halachó Seguro":</strong> Plataforma con geolocalización y cifrado</li>
+                <li><strong>Protección a testigos:</strong> Programas especiales para casos sensibles</li>
+                <li><strong>Asesoría legal:</strong> Soporte gratuito durante el proceso</li>
+            </ul>
+        </div>
+
+        <div class="denuncia-section">
+            <h2 class="section-title">Preguntas Frecuentes</h2>
+            <p>Resolvemos tus dudas sobre el proceso de denuncia en Halachó.</p>
+            
+            <div class="faq-item">
+                <p class="faq-question">¿Qué tipos de delitos puedo denunciar?</p>
+                <p>Puedes reportar cualquier actividad ilícita: robos, narcomenudeo, violencia familiar, extorsión, vandalismo, corrupción, entre otros. Los canales de la 32ª Zona Militar son especializados para delitos graves contra la salud y seguridad nacional.</p>
+            </div>
+            
+            <div class="faq-item">
+                <p class="faq-question">¿Cómo garantizan mi anonimato?</p>
+                <p>Nuestros sistemas no registran datos personales a menos que tú lo solicites explícitamente. Las denuncias digitales usan cifrado de extremo a extremo y las telefónicas no graban llamadas a menos que sea necesario para la investigación.</p>
+            </div>
+            
+            <div class="faq-item">
+                <p class="faq-question">¿Qué información debo incluir para que mi denuncia sea efectiva?</p>
+                <p>Te recomendamos incluir: descripción detallada de los hechos, fecha y hora aproximada, ubicación exacta (calle, colonia, puntos de referencia), características físicas de los involucrados, vehículos relacionados (modelo, color, placas), y cualquier evidencia que puedas proporcionar de manera segura.</p>
+            </div>
+            
+            <div class="faq-item">
+                <p class="faq-question">¿Qué pasa después de presentar mi denuncia?</p>
+                <p>Recibirás un folio de seguimiento (en denuncias no anónimas). Las autoridades evalúan cada caso para determinar las acciones a seguir, que pueden incluir patrullajes preventivos, operativos especiales o investigación formal. En denuncias anónimas, puedes seguir el proceso mediante tu folio electrónico.</p>
+            </div>
+            
+            <div class="faq-item">
+                <p class="faq-question">¿Puedo denunciar si no soy residente de Halachó?</p>
+                <p>Sí, todos los canales de denuncia están disponibles para cualquier persona que tenga información sobre actividades ilícitas en nuestro municipio, sin importar su lugar de residencia.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="logo">HALACHÓ SEGURO</div>
+            <p>© 2024 Sistema Integral de Denuncias Ciudadanas</p>
+            <p>"Tu valentía construye un Halachó más seguro para todos"</p>
+            <p>Datos actualizados a junio 2024</p>
+        </div>
+    </footer>
+
+    <!-- Botón flotante para regresar al menú -->
+    <a href="index.html" class="menu-button" title="Volver al menú principal">🏠</a>
+    
+</body>
+</html>

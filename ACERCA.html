@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acerca de - Proyecto Seguridad Halachó</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #006494;
+            --secondary: #0582ca;
+            --accent: #00a6fb;
+            --light: #e6f4f9;
+            --dark: #003554;
+            --text: #333333;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: var(--white);
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), #00c8ff);
+        }
+
+        h1, h2, h3 {
+            font-family: 'Merriweather', serif;
+            font-weight: 700;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+
+        h1::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--accent);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .intro {
+            background: var(--white);
+            margin: 3rem auto;
+            padding: 2.5rem;
+            border-radius: 12px;
+            max-width: 900px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            position: relative;
+            border-left: 5px solid var(--accent);
+        }
+
+        .intro p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin: 0;
+            color: var(--text);
+        }
+
+        .section-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin: 2rem auto;
+            max-width: 1200px;
+            padding: 0 1rem;
+        }
+
+        section {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-top: 3px solid var(--primary);
+        }
+
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        section h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        section h2::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+
+        p, ul {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        ul li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        ul li::before {
+            content: "•";
+            color: var(--accent);
+            font-size: 1.5rem;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+
+        .highlight {
+            background-color: var(--light);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        footer {
+            background: var(--dark);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+        }
+
+        .image-container {
+            margin: 3rem auto;
+            max-width: 900px;
+            padding: 1rem;
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .image-container h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .halacho-image {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: var(--transition);
+        }
+
+        .halacho-image:hover {
+            transform: scale(1.01);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        }
+
+        .image-caption {
+            margin-top: 1rem;
+            font-style: italic;
+            color: #666;
+        }
+
+        /* Botón de regreso al menú */
+        .menu-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 28px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            text-decoration: none;
+        }
+
+        .menu-button:hover {
+            background: var(--dark);
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .menu-button::after {
+            content: "Menú";
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--dark);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            white-space: nowrap;
+        }
+
+        .menu-button:hover::after {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .section-container {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .intro, section {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+
+            .menu-button {
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .intro p, p, ul {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Proyecto Seguridad Halachó, Yucatán</h1>
+            <p>Construyendo una comunidad más segura juntos</p>
+        </div>
+    </header>
+
+    <div class="intro">
+        <div class="container">
+            <p>
+                Este proyecto tiene como misión principal <span class="highlight">mejorar la seguridad ciudadana</span> en Halachó, Yucatán. 
+                A través de información actualizada, participación comunitaria y acciones estratégicas, buscamos 
+                empoderar a los habitantes para construir un entorno más <span class="highlight">seguro, confiable y solidario</span> para todos.
+            </p>
+        </div>
+    </div>
+
+    <div class="section-container">
+        <section id="objetivo">
+            <h2>Objetivo del Proyecto</h2>
+            <p>
+                Proporcionar información detallada y actualizada sobre la situación de seguridad en Halachó, Yucatán, 
+                fomentando la conciencia, la participación ciudadana y la colaboración entre la comunidad y las autoridades.
+            </p>
+            <p>
+                Nuestro enfoque se basa en <span class="highlight">transparencia, tecnología y trabajo comunitario</span> para lograr cambios sostenibles.
+            </p>
+        </section>
+
+        <section id="metas">
+            <h2>Metas 2024-2025</h2>
+            <ul>
+                <li>Reducir la impunidad mediante la creación de un observatorio ciudadano con abogados pro bono.</li>
+                <li>Instalar 50 cámaras de seguridad con inteligencia artificial para el reconocimiento de placas vehiculares.</li>
+                <li>Gestionar un presupuesto de $2.5 millones de pesos para la iluminación LED de zonas críticas.</li>
+                <li>Implementar programas de prevención del delito en escuelas y comunidades.</li>
+            </ul>
+        </section>
+    </div>
+
+    <div class="section-container">
+        <section id="alianzas">
+            <h2>Alianzas Estratégicas</h2>
+            <p>
+                Para alcanzar nuestros objetivos, establecemos alianzas estratégicas con:
+            </p>
+            <ul>
+                <li>Universidad Autónoma de Yucatán, para realizar análisis criminológicos.</li>
+                <li>Cámara de Comercio local, para la obtención de fondos destinados a patrullas de vigilancia.</li>
+                <li>Gobierno Municipal, para coordinación de acciones de seguridad.</li>
+                <li>Organizaciones civiles, para programas de prevención social.</li>
+            </ul>
+        </section>
+
+        <section id="empoderamiento">
+            <h2>Empoderamiento Ciudadano</h2>
+            <p>
+                Nuestro propósito es empoderar a los ciudadanos de Halachó, brindándoles las herramientas necesarias 
+                para participar activamente en la prevención del delito y en la construcción de un entorno más seguro y justo.
+            </p>
+            <p>
+                Creemos que la <span class="highlight">seguridad es responsabilidad de todos</span> y trabajamos para fomentar una cultura de legalidad y participación.
+            </p>
+        </section>
+    </div>
+
+    <div class="image-container">
+        <h2>Halachó, Yucatán</h2>
+        <img src="IMG1.jpg" >
+        <p class="image-caption">Vista del hermoso municipio de Halachó, Yucatán</p>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>Proyecto Seguridad Halachó &copy; 2024 - Todos los derechos reservados</p>
+            <p>Contacto: info@seguridadhalacho.org | Tel: 999 123 4567</p>
+        </div>
+    </footer>
+
+    <!-- Botón de regreso al menú -->
+    <a href="index.html" class="menu-button" title="Volver al menú principal">🏠</a>
+
+</body>
+</html>

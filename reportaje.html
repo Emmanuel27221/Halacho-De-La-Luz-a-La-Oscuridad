@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inseguridad en el Barrio del Ceibo - Reportaje Especial</title>
+    <style>
+        :root {
+            --primary-color: #8e44ad;
+            --secondary-color: #e74c3c;
+            --dark-color: #2c3e50;
+            --light-color: #ecf0f1;
+            --accent-color: #3498db;
+            --text-color: #333;
+            --light-text: #7f8c8d;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+            color: var(--text-color);
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1518391846015-55a9cc003b25?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 5px solid var(--secondary-color);
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 2.8em;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .subtitle {
+            font-size: 1.2em;
+            margin-top: 15px;
+            font-weight: 300;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        .article {
+            background-color: white;
+            padding: 35px;
+            margin-bottom: 40px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border-top: 4px solid var(--primary-color);
+        }
+        
+        .article-title {
+            color: var(--dark-color);
+            font-size: 2em;
+            margin-top: 0;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--accent-color);
+        }
+        
+        .article-meta {
+            color: var(--light-text);
+            font-size: 0.9em;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .article-meta span {
+            margin-right: 15px;
+        }
+        
+        .article-img {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin: 25px 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .quote {
+            border-left: 4px solid var(--secondary-color);
+            padding: 20px;
+            margin: 30px 0;
+            background-color: #f8f9fa;
+            font-style: italic;
+            color: var(--dark-color);
+            font-size: 1.1em;
+        }
+        
+        .author {
+            font-weight: bold;
+            margin-top: 10px;
+            color: var(--primary-color);
+        }
+        
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            margin: 30px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .video-caption {
+            text-align: center;
+            font-style: italic;
+            color: var(--light-text);
+            margin-top: -20px;
+            margin-bottom: 30px;
+        }
+        
+        .expert-box {
+            background-color: #f5f5f5;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 30px 0;
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        .expert-title {
+            color: var(--accent-color);
+            margin-top: 0;
+            font-size: 1.3em;
+        }
+        
+        .video-analysis {
+            background-color: #f0f7ff;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 30px 0;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .analysis-title {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-size: 1.3em;
+        }
+        
+        .analysis-point {
+            margin-bottom: 15px;
+            padding-left: 15px;
+            border-left: 2px solid var(--accent-color);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 40px;
+            background-color: var(--dark-color);
+            color: white;
+            margin-top: 40px;
+        }
+        
+        .tags {
+            margin-top: 30px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        .tag {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            font-size: 0.8em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .stat-box {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--light-color);
+            border-radius: 8px;
+            min-width: 150px;
+            margin: 10px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+        
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            color: var(--light-text);
+        }
+        
+        .warning-box {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .warning-title {
+            color: #856404;
+            margin-top: 0;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            
+            .article {
+                padding: 20px;
+            }
+            
+            .article-img {
+                height: 300px;
+            }
+            
+            .stat-box {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Historias Detrás de las Cifras</h1>
+            <p class="subtitle">Reportaje especial sobre el aumento de hechos violentos y la preocupación vecinal</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="article">
+            <h2 class="article-title">Aumento alarmante de hechos violentos en el Barrio del Ceibo</h2>
+            <div class="article-meta">
+                <span>Publicado el 12 de noviembre de 2023</span>
+                <span>Por Redacción Velo Halachó Noticias</span>
+                <span>Actualizado hace 2 días</span>
+            </div>
+            
+            <img src="IMG19.jpeg" alt="Barrio del Ceibo en Halachó. Por Velo Halachó Noticias" class="article-img">
+            
+            <p>El tradicional Barrio del Ceibo, que hace algunos años era conocido por su ambiente familiar y tranquilidad, ha experimentado en los últimos meses un preocupante incremento en hechos violentos que han alterado la paz de sus residentes.</p>
+            
+            <div class="stat-box">
+                <div class="stat-item">
+                    <div class="stat-number">+65%</div>
+                    <div class="stat-label">Agresiones violentas</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">3x</div>
+                    <div class="stat-label">Más denuncias que 2022</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">42%</div>
+                    <div class="stat-label">Vecinos que temen salir de noche</div>
+                </div>
+            </div>
+            
+            <div class="quote">
+                "Ya no es el barrio de antes. Ahora pensamos dos veces antes de salir después de las 8 de la noche. Lo último que necesitamos es que nuestros hijos crezcan con miedo."
+                <div class="author">- Antonia Tucuch "Doña Tona", residente del barrio por 55 años</div>
+            </div>
+            
+            <!-- SECCIÓN CORREGIDA - CAMBIO DE ESPOSO A SUEGRA -->
+            <h3>El caso que conmocionó a la comunidad</h3>
+            <p>El incidente más reciente y que ha generado mayor alarma ocurrió la semana pasada, cuando una mujer apuñaló a su suegra durante una discusión familiar que escaló rápidamente a la violencia física. El video del incidente, captado por vecinos, muestra la gravedad de la situación.</p>
+            
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/79kTuZUF-74?si=gtVyPv2NhsxzoPzv" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <p class="video-caption">[Video: Momentos posteriores al ataque en el Barrio de San Cosme- Contenido sensible]</p>
+            
+            <div class="warning-box">
+                <h3 class="warning-title">Contenido sensible</h3>
+                <p>El video contiene imágenes fuertes de un hecho violento. Se recomienda discreción al visualizarlo.</p>
+            </div>
+            
+            <div class="video-analysis">
+                <h3 class="analysis-title">Análisis del video del incidente</h3>
+                <div class="analysis-point">
+                    <strong>Contexto:</strong> El video muestra los momentos posteriores al ataque, donde se observa a la víctima (la suegra) con heridas visibles mientras los vecinos intentan auxiliarla. La agresora aparece visiblemente alterada en el lugar.
+                </div>
+                <div class="analysis-point">
+                    <strong>Reacción vecinal:</strong> Se aprecia cómo los residentes del barrio responden rápidamente al grito de auxilio, demostrando tanto la solidaridad comunitaria como la frecuencia con que enfrentan este tipo de situaciones.
+                </div>
+                <div class="analysis-point">
+                    <strong>Elementos preocupantes:</strong> En el audio se escuchan comentarios de testigos que sugieren conflictos familiares previos entre la nuera y su suegra.
+                </div>
+                <div class="analysis-point">
+                    <strong>Tiempo de respuesta:</strong> Según la hora visible en el video, pasaron aproximadamente 15 minutos desde el incidente hasta la llegada de las autoridades, tiempo crítico para la atención de heridos.
+                </div>
+                <div class="analysis-point">
+                    <strong>Entorno:</strong> El video también revela las condiciones del barrio, con calles mal iluminadas y falta de vigilancia evidente, factores que según expertos contribuyen a la inseguridad.
+                </div>
+            </div>
+            
+            <p>La suegra fue trasladada al hospital regional con heridas graves pero estables. La agresora fue detenida y el caso está bajo investigación por violencia intrafamiliar.</p>
+            
+            <!-- LISTA DE FACTORES ACTUALIZADA -->
+            <h3>Factores que contribuyen a la violencia</h3>
+            <p>Expertos consultados identifican varias causas:</p>
+            <ul>
+                <li>Conflictos familiares no resueltos</li>
+                <li>Aumento del consumo de alcohol y sustancias prohibidas</li>
+                <li>Desempleo y precariedad económica</li>
+                <li>Normalización de la violencia intrafamiliar</li>
+                <li>Falta de mediación en conflictos familiares</li>
+            </ul>
+            
+            <div class="expert-box">
+                <h3 class="expert-title">Análisis de la Dra. Laura Torres, psicóloga social</h3>
+                <p>"El Barrio del Ceibo está sufriendo una transformación acelerada. Lo que vemos es el resultado de tensiones acumuladas: familias bajo estrés económico, jóvenes sin oportunidades, y una percepción de impunidad. La violencia doméstica es particularmente preocupante porque suele ser invisible hasta que ocurre una tragedia."</p>
+                <p>"Necesitamos intervenciones integrales que incluyan apoyo psicológico, oportunidades económicas y fortalecimiento del tejido social. La seguridad no es solo más policías, es prevenir antes de que ocurran los hechos violentos."</p>
+            </div>
+        </div>
+        
+        <div class="article">
+            <h2 class="article-title">Vecinos organizados: La respuesta comunitaria a la inseguridad</h2>
+            <div class="article-meta">
+                <span>Publicado el 28 de octubre de 2024</span>
+                <span>Por Javier Canul</span>
+                <span>Fotografías: Pedro Chuc</span>
+            </div>
+            
+            <img src="IMG 18.jpg" alt="Vecinos del Barrio del Ceibo organizándose" class="article-img">
+            
+            <p>Frente al aumento de la inseguridad, residentes del Barrio del Ceibo han comenzado a organizarse para proteger sus hogares y familias, implementando diversas estrategias de vigilancia comunitaria.</p>
+            
+            <div class="quote">
+                "No podemos quedarnos esperando que las autoridades solucionen todo. Como comunidad tenemos que actuar. Hemos instalado cámaras, organizado grupos de WhatsApp y hacemos rondas nocturnas."
+                <div class="author">- Guadalupe Chí Martín, líder comunitaria</div>
+            </div>
+            
+            <h3>Medidas implementadas por los vecinos</h3>
+            <ul>
+                <li>Red de alerta mediante grupos de WhatsApp</li>
+                <li>Rondas vecinales los fines de semana</li>
+                <li>Recolección de firmas para mayor iluminación pública</li>
+                <li>Talleres de prevención de violencia</li>
+                <li>Mapeo de zonas de riesgo</li>
+            </ul>
+            
+            <div class="expert-box">
+                <h3 class="expert-title">¿Qué dice la autoridad?</h3>
+                <p>El comisario Eliazar Canul reconoce la problemática:</p>
+                <p>"Estamos conscientes de la situación en el Barrio del Ceibo. Hemos incrementado los patrullajes y estamos trabajando en un operativo especial. Sin embargo, necesitamos la colaboración de los ciudadanos para identificar a los responsables de estos hechos violentos."</p>
+                <p>"Recomendamos a los vecinos evitar tomar la justicia por sus propias manos y reportar cualquier actividad sospechosa al número de emergencias."</p>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>© 2023 Halachó Seguro | Periodismo comprometido con la seguridad comunitaria</p>
+        <p>Contacto: redaccion@halachoseguro.mx | Tel: 999 987 6543</p>
+        <p><a href="#" style="color: white; text-decoration: underline;">Política de privacidad</a> | <a href="#" style="color: white; text-decoration: underline;">Aviso legal</a></p>
+    </footer>
+    <a href="index.html" class="menu-button" title="Volver al menú principal">🏠</a>
+
+    <style>
+        .menu-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 28px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .menu-button:hover {
+            background-color: var(--secondary-color);
+            transform: scale(1.1);
+        }
+    </style>
+</body>
+</html>

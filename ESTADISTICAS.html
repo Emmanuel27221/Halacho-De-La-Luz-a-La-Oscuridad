@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estadísticas de Inseguridad - Halachó</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #e74c3c;
+            --accent-color: #3498db;
+            --light-bg: #f8f9fa;
+            --dark-text: #333333;
+            --light-text: #f8f9fa;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --info-color: #2980b9;
+            --border-radius: 12px;
+            --box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f7fa;
+            color: var(--dark-text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1a252f 100%);
+            color: var(--light-text);
+            padding: 60px 0 40px;
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::after {
+            content: "";
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="%23f5f7fa"></path><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" fill="%23f5f7fa"></path><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%23f5f7fa"></path></svg>') no-repeat;
+            background-size: cover;
+            z-index: 1;
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 2.8rem;
+            font-weight: 700;
+            font-family: 'Roboto Condensed', sans-serif;
+            line-height: 1.2;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        .stat-section {
+            background-color: white;
+            padding: 35px;
+            border-radius: var(--border-radius);
+            margin-bottom: 40px;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+        
+        .stat-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+        
+        h2 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+            font-family: 'Roboto Condensed', sans-serif;
+        }
+        
+        h2::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--secondary-color);
+            border-radius: 2px;
+        }
+        
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .stat-card {
+            background-color: var(--light-bg);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            border-left: 5px solid var(--accent-color);
+            transition: var(--transition);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .stat-card h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .stat-number {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+            margin: 15px 0;
+            font-family: 'Roboto Condensed', sans-serif;
+        }
+        
+        .chart-container {
+            height: 450px;
+            margin: 40px 0;
+            background-color: white;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .comparison {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 40px 0;
+            gap: 20px;
+        }
+        
+        .year-box {
+            text-align: center;
+            padding: 30px 20px;
+            border-radius: var(--border-radius);
+            width: 220px;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .year-box:hover {
+            transform: scale(1.05);
+        }
+        
+        .year-2022 {
+            background-color: #e3f2fd;
+            border-top: 5px solid #2196f3;
+        }
+        
+        .year-2023 {
+            background-color: #fff8e1;
+            border-top: 5px solid #ffc107;
+        }
+        
+        .year-2024 {
+            background-color: #e8f5e9;
+            border-top: 5px solid #4caf50;
+        }
+        
+        .source {
+            font-style: italic;
+            color: #7f8c8d;
+            text-align: right;
+            margin-top: 25px;
+            font-size: 0.9rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1a252f 100%);
+            color: var(--light-text);
+            margin-top: 60px;
+        }
+        
+        footer p {
+            margin: 10px 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            box-shadow: 0 1px 10px rgba(0,0,0,0.1);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+        
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        tr:hover {
+            background-color: #f1f5f9;
+        }
+        
+        .trend-up {
+            color: var(--secondary-color);
+            font-weight: 600;
+        }
+        
+        .trend-down {
+            color: var(--success-color);
+            font-weight: 600;
+        }
+        
+        .highlight-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--accent-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+        
+        .highlight-box h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+        
+        .highlight-box ul {
+            padding-left: 20px;
+        }
+        
+        .highlight-box li {
+            margin-bottom: 8px;
+        }
+        
+        .highlight-box strong {
+            color: var(--primary-color);
+        }
+        
+        .data-disclaimer {
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            text-align: center;
+            margin-top: 10px;
+            font-style: italic;
+        }
+        
+        .key-stat {
+            text-align: center;
+            padding: 20px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin: 30px 0;
+            border-top: 5px solid var(--secondary-color);
+        }
+        
+        .key-stat .stat-number {
+            font-size: 3.5rem;
+        }
+        
+        .key-stat p {
+            font-size: 1.1rem;
+            color: var(--dark-text);
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            header p {
+                font-size: 1rem;
+            }
+            
+            .stat-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .year-box {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .stat-section {
+                padding: 25px 20px;
+            }
+        }
+        
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .stat-section, header {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+        
+        .stat-section:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .stat-section:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        /* Botón de regreso al menú */
+        .menu-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 28px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .menu-button:hover {
+            background-color: var(--secondary-color);
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Cifras que Hablan: La Realidad de Halachó</h1>
+            <p>Análisis detallado de las estadísticas de inseguridad en nuestro municipio</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="key-stat">
+            <div class="stat-number">40%</div>
+            <p>Reducción en delitos reportados (2023 vs 2024)</p>
+            <p class="data-disclaimer">* Datos hasta mayo 2024</p>
+        </div>
+
+        <div class="stat-section">
+            <h2>Estadísticas Criminales Detalladas (2022-2024)</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Delito</th>
+                        <th>2022</th>
+                        <th>2023</th>
+                        <th>2024*</th>
+                        <th>Tendencia</th>
+                        <th>% Impunidad Estimada</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Robo a casa habitación</td>
+                        <td>9</td>
+                        <td>12</td>
+                        <td>8</td>
+                        <td class="trend-down">↓ 33%</td>
+                        <td>85%</td>
+                    </tr>
+                    <tr>
+                        <td>Robo a comercio</td>
+                        <td>5</td>
+                        <td>11</td>
+                        <td>6</td>
+                        <td class="trend-down">↓ 45%</td>
+                        <td>90%</td>
+                    </tr>
+                    <tr>
+                        <td>Robo de vehículos</td>
+                        <td>3</td>
+                        <td>7</td>
+                        <td>4</td>
+                        <td class="trend-down">↓ 43%</td>
+                        <td>95%</td>
+                    </tr>
+                    <tr>
+                        <td>Violencia familiar</td>
+                        <td>18</td>
+                        <td>25</td>
+                        <td>15</td>
+                        <td class="trend-down">↓ 40%</td>
+                        <td>70%</td>
+                    </tr>
+                    <tr>
+                        <td>Narcomenudeo (operativos)</td>
+                        <td>2</td>
+                        <td>5</td>
+                        <td>3</td>
+                        <td>-</td>
+                        <td>60%</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="data-disclaimer">* Datos hasta mayo 2024</p>
+            
+            <div class="highlight-box">
+                <h3>Hallazgos clave:</h3>
+                <ul>
+                    <li><strong>Pico delictivo:</strong> Septiembre-diciembre (temporada de fiestas patronales)</li>
+                    <li><strong>Zonas críticas:</strong> 68% de los robos ocurren en Centro, San Francisco y Ceibo</li>
+                    <li><strong>Subregistro:</strong> Solo 1 de cada 5 delitos se denuncia (según encuesta vecinal)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="stat-section">
+            <h2>Evolución de la inseguridad</h2>
+            <div class="comparison">
+                <div class="year-box year-2022">
+                    <h3>2022</h3>
+                    <div class="stat-number">37</div>
+                    <p>delitos reportados</p>
+                </div>
+                <div class="year-box year-2023">
+                    <h3>2023</h3>
+                    <div class="stat-number">60</div>
+                    <p>delitos reportados (+62%)</p>
+                </div>
+                <div class="year-box year-2024">
+                    <h3>2024*</h3>
+                    <div class="stat-number">36</div>
+                    <p>delitos reportados (-40%)</p>
+                </div>
+            </div>
+            <p class="data-disclaimer">* Datos hasta mayo 2024</p>
+        </div>
+
+        <div class="stat-section">
+            <h2>Contexto Estatal y Municipal</h2>
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <h3>Tasa delictiva en Yucatán (2024)</h3>
+                    <div class="stat-number">163.74</div>
+                    <p>delitos por cada 100,000 habitantes (la más baja en su historia)</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Homicidios dolosos</h3>
+                    <div class="stat-number">39</div>
+                    <p>víctimas en Yucatán (ene-nov 2024), solo 0.1% del total nacional</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Subregistro en Halachó</h3>
+                    <div class="stat-number">80%</div>
+                    <p>Se estima que solo el 20% de los delitos se denuncian oficialmente</p>
+                </div>
+            </div>
+            
+            <div class="highlight-box">
+                <h3>Perspectiva comparativa</h3>
+                <ul>
+                    <li><strong>Halachó representa el 2.3%</strong> de los delitos reportados en el estado</li>
+                    <li><strong>Índice de paz:</strong> Yucatán ocupa el 1er lugar nacional en seguridad</li>
+                    <li><strong>Percepción ciudadana:</strong> 65% de los habitantes se sienten seguros (Encuesta Nacional 2024)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>Datos proporcionados por la Secretaría de Seguridad Pública del Estado de Yucatán</p>
+            <p>Análisis realizado por el Observatorio Ciudadano de Halachó</p>
+            <p>© 2024 Todos los derechos reservados</p>
+        </div>
+    </footer>
+
+    
+    <a href="index.html" class="menu-button" title="Volver al menú principal">🏠</a>
+</body>
+</html>

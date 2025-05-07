@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prevención - Halachó Seguro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #f1c40f;
+            --accent: #e74c3c;
+            --light-blue: #3498db;
+            --light-gray: #ecf0f1;
+            --dark-gray: #34495e;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Noto Sans', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--dark-gray));
+            color: var(--white);
+            padding: 2rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--secondary);
+        }
+        
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .badge {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-top: 1rem;
+        }
+        
+        .seccion {
+            background: var(--white);
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .seccion:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .seccion-header {
+            background: var(--light-blue);
+            color: var(--white);
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .seccion-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+        
+        .seccion-header .icon {
+            font-size: 1.8rem;
+            margin-right: 1rem;
+        }
+        
+        .seccion-content {
+            padding: 1.5rem;
+        }
+        
+        .consejo {
+            background: var(--light-gray);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            border-left: 5px solid var(--light-blue);
+            transition: var(--transition);
+        }
+        
+        .consejo:hover {
+            background: #dfe6e9;
+        }
+        
+        .consejo h3 {
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .consejo h3::before {
+            content: "•";
+            color: var(--secondary);
+            font-size: 2rem;
+            margin-right: 0.5rem;
+            line-height: 0;
+        }
+        
+        .consejo p, .consejo ul {
+            margin-bottom: 0.5rem;
+        }
+        
+        .consejo ul {
+            padding-left: 1.5rem;
+        }
+        
+        .consejo li {
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+        
+        .consejo li::before {
+            content: "→";
+            color: var(--light-blue);
+            position: absolute;
+            left: -1.2rem;
+        }
+        
+        .emergencia {
+            background: linear-gradient(135deg, #ff7675, #e74c3c);
+            color: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .emergencia::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 10px;
+            height: 100%;
+            background: var(--secondary);
+        }
+        
+        .emergencia h2 {
+            color: white;
+            margin-bottom: 1.5rem;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            align-items: center;
+        }
+        
+        .emergencia h2::before {
+            content: "⚠️";
+            margin-right: 0.8rem;
+            font-size: 1.5rem;
+        }
+        
+        .numero-emergencia {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+        
+        .numero-emergencia:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(5px);
+        }
+        
+        .numero {
+            font-weight: bold;
+            font-size: 1.3rem;
+            margin-right: 1rem;
+            min-width: 80px;
+            text-align: center;
+            background: white;
+            color: var(--accent);
+            padding: 0.3rem 0.6rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .descripcion {
+            flex: 1;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1rem 0;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        img:hover {
+            transform: scale(1.02);
+        }
+        
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        footer {
+            background: linear-gradient(135deg, var(--dark-gray), var(--primary));
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links a {
+            color: var(--secondary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+            color: white;
+        }
+        
+        /* Estilos para el botón de menú */
+        .menu-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 28px;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            z-index: 1000;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .menu-button:hover {
+            background-color: var(--accent);
+            transform: scale(1.1);
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .seccion-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .seccion-header .icon {
+                margin-bottom: 0.5rem;
+            }
+            
+            .numero-emergencia {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .numero {
+                margin-bottom: 0.5rem;
+                margin-right: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Prevención de Delitos en Halachó</h1>
+            <p>Consejos prácticos para mantener segura a nuestra comunidad</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="seccion">
+            <div class="seccion-header">
+                <span class="icon">🛍️</span>
+                <h2>Para Comerciantes</h2>
+            </div>
+            <div class="seccion-content">
+                <article class="consejo">
+                    <h3>Protocolo anti-robos avanzado</h3>
+                    <ul>
+                        <li>Usa billetes marcados con tinta invisible para rastrear robos</li>
+                        <li>Instala cajas registradoras con alarma silenciosa vinculada directamente a la policía</li>
+                        <li>Realiza depósitos bancarios diarios (68% de robos a comercios ocurren en el Centro de Halachó)</li>
+                    </ul>
+                </article>
+                
+                <article class="consejo">
+                    <h3>Vigilancia tecnológica</h3>
+                    <p>Conecta tus cámaras de seguridad con vecinos (proyecto "Barrio Seguro" redujo robos en 60% en San Cosme). Considera instalar cámaras con reconocimiento de placas.</p>
+                    <div class="image-grid">
+                        <img src="IMG4.jpg" alt="Mercado de Halachó" loading="lazy">
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="seccion">
+            <div class="seccion-header">
+                <span class="icon">🏠</span>
+                <h2>Para Hogares</h2>
+            </div>
+            <div class="seccion-content">
+                <article class="consejo">
+                    <h3>Técnica OVAC para vecinos</h3>
+                    <p><strong>Observar</strong> actividades sospechosas<br>
+                    <strong>Vincular</strong> con otros vecinos (WhatsApp/Telegram)<br>
+                    <strong>Actuar</strong> con protocolos comunitarios<br>
+                    <strong>Comunicar</strong> a autoridades (App Halachó Denuncia)</p>
+                </article>
+                
+                <article class="consejo">
+                    <h3>Medidas disuasivas efectivas</h3>
+                    <ul>
+                        <li>Pintar "Casa vigilada 24/7" (reduce robos en 40%)</li>
+                        <li>Perros guardianes (PITBULLS O PASTORES ALEMANES)</li>
+                        <li>Iluminación LED en entradas (evita robos en San Francisco y Santa Ana)</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <section class="seccion">
+            <div class="seccion-header">
+                <span class="icon">🚶</span>
+                <h2>Para Transeúntes</h2>
+            </div>
+            <div class="seccion-content">
+                <article class="consejo">
+                    <h3>Rutas y horarios seguros</h3>
+                    <ul>
+                        <li>Evita el Callejón del Chivo (punto de venta de drogas)</li>
+                        <li>Centro Histórico después de 10pm (3 robos semanales en mercado)</li>
+                        <li>Carretera Halachó-Calkiní (Km 3-5) entre 5-7am (falsos "levantones")</li>
+                    </ul>
+                    <img src="IMG6.jpg" alt="Centro de Halachó" loading="lazy">
+                </article>
+                
+                <article class="consejo">
+                    <h3>Prevención en zonas escolares</h3>
+                    <ul>
+                        <li>Supervisa a adolescentes cerca de la Escuela Técnica No. 12 (radio de 500m)</li>
+                        <li>Reporta venta de "cripy" (marihuana local) o "cristal" (metanfetamina de $100)</li>
+                        <li>Usa la app "Halachó Denuncia" con geolocalización para reportes anónimos</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <a href="index.html" class="menu-button" title="Volver al menú principal">🏠</a>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="#">Inicio</a>
+                    <a href="#">Contacto</a>
+                    <a href="#">Acerca de</a>
+                    <a href="#">Política de privacidad</a>
+                </div>
+                <p>© 2023 Halachó Seguro. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

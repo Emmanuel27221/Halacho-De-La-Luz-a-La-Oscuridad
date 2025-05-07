@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa de Seguridad - Halachó, Yucatán</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --danger-color: #e74c3c;
+            --warning-color: #f39c12;
+            --success-color: #2ecc71;
+            --light-bg: #f8f9fa;
+            --dark-text: #333;
+            --light-text: #f8f9fa;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+            background-color: var(--light-bg);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), #1a252f);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://maps.googleapis.com/maps/api/staticmap?center=Halacho,Yucatan&zoom=13&size=1200x300&scale=2&maptype=roadmap&key=TU_API_KEY') no-repeat center center;
+            background-size: cover;
+            opacity: 0.15;
+            z-index: 0;
+        }
+        
+        header .container {
+            position: relative;
+            z-index: 1;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+        
+        .last-update {
+            background-color: rgba(255,255,255,0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            display: inline-block;
+            font-size: 0.9rem;
+        }
+        
+        .main-content {
+            padding: 2rem 0;
+        }
+        
+        .map-section {
+            margin-bottom: 3rem;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+        
+        .map-container {
+            height: 600px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+        
+        .legend {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+        
+        .legend-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .legend-title {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            border-radius: 4px;
+        }
+        
+        .neighborhoods-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .neighborhood-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .neighborhood-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .card-header {
+            position: relative;
+            height: 180px;
+            overflow: hidden;
+            color: white;
+            font-weight: 500;
+        }
+        
+        .card-header-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .neighborhood-card:hover .card-header-image {
+            transform: scale(1.05);
+        }
+        
+        .card-header-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem 1.5rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+        }
+        
+        .danger-high {
+            background-color: var(--danger-color);
+        }
+        
+        .danger-medium {
+            background-color: var(--warning-color);
+        }
+        
+        .danger-low {
+            background-color: var(--success-color);
+        }
+        
+        .card-body {
+            padding: 1.5rem;
+        }
+        
+        .card-body ul {
+            list-style-type: none;
+        }
+        
+        .card-body li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .card-body li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+        
+        .card-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+        
+        .safety-tips {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+        
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .tip-card {
+            background: var(--light-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        .tip-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .download-section {
+            text-align: center;
+            margin: 3rem 0;
+        }
+        
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+        }
+        
+        .download-btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        .download-btn i {
+            margin-right: 0.5rem;
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .footer-link {
+            color: var(--light-text);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        
+        .footer-link:hover {
+            opacity: 1;
+        }
+        
+        .copyright {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .map-container {
+                height: 400px;
+            }
+            
+            .neighborhoods-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .menu-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 28px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .menu-button:hover {
+            background-color: var(--secondary-color);
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Mapa de Seguridad de Halachó</h1>
+            <p class="subtitle">Información actualizada sobre seguridad en los barrios del municipio</p>
+            <span class="last-update"><i class="fas fa-sync-alt"></i> Actualizado: 15 de DICIEMBRE 2024</span>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <div class="container">
+            <section class="map-section">
+                <h2 class="section-title">Mapa Interactivo de Seguridad</h2>
+                
+                <div class="legend">
+                    <div class="legend-group">
+                        <h3 class="legend-title">Niveles de Riesgo</h3>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: var(--danger-color);"></div>
+                            <span>Alto riesgo (Barrios peligrosos)</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: var(--warning-color);"></div>
+                            <span>Riesgo moderado</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: var(--success-color);"></div>
+                            <span>Bajo riesgo (Barrios seguros)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="legend-group">
+                        <h3 class="legend-title">Puntos de Interés</h3>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #3498db;"></div>
+                            <span>Puestos policiales</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #9b59b6;"></div>
+                            <span>Cámaras de vigilancia</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #1abc9c;"></div>
+                            <span>Puntos de ayuda comunitaria</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="map-container">
+                    <div id="map"></div>
+                </div>
+            </section>
+            
+            <section class="neighborhoods-section">
+                <h2 class="section-title">Barrios de Halachó</h2>
+                <p>Consulta la información de seguridad específica para cada barrio del municipio.</p>
+                
+                <h3 style="margin: 1.5rem 0 1rem; color: var(--danger-color);">Barrios con alto índice delictivo</h3>
+                <div class="neighborhoods-grid">
+                    <div class="neighborhood-card">
+                        <div class="card-header danger-high">
+                            <img src="IMG10.jpeg" alt="Barrio Ceibo" class="card-header-image">
+                            <div class="card-header-overlay">
+                                <h3>Barrio Ceibo</h3>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <ul>
+                                <li>Alta incidencia de robos a viviendas</li>
+                                <li>Asaltos frecuentes en calles secundarias</li>
+                                <li>Problemas con pandillas locales</li>
+                                <li>Poca iluminación en la mayoría de calles</li>
+                            </ul>
+                            <div class="card-stats">
+                                <div class="stat-item">
+                                    <div class="stat-value">78%</div>
+                                    <div class="stat-label">Reportes delictivos</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value">24</div>
+                                    <div class="stat-label">Incidentes/mes</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="neighborhood-card">
+                        <div class="card-header danger-high">
+                            <img src="IMG11.jpeg" alt="Barrio San Salvador" class="card-header-image">
+                            <div class="card-header-overlay">
+                                <h3>Barrio San Salvador</h3>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <ul>
+                                <li>Robos a transeúntes frecuentes</li>
+                                <li>Venta de drogas en zonas específicas</li>
+                                <li>Violencia doméstica reportada</li>
+                                <li>Poca presencia policial</li>
+                            </ul>
+                            <div class="card-stats">
+                                <div class="stat-item">
+                                    <div class="stat-value">65%</div>
+                                    <div class="stat-label">Reportes delictivos</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value">18</div>
+                                    <div class="stat-label">Incidentes/mes</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="neighborhood-card">
+                        <div class="card-header danger-high">
+                            <img src="IMG12.jpeg"Barrio San Cosme" class="card-header-image">
+                            <div class="card-header-overlay">
+                                <h3>Barrio San Cosme</h3>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <ul>
+                                <li>Robos de vehículos frecuentes</li>
+                                <li>Asaltos a negocios pequeños</li>
+                                <li>Zonas con alta densidad poblacional</li>
+                                <li>Calles en mal estado y oscuras</li>
+                            </ul>
+                            <div class="card-stats">
+                                <div class="stat-item">
+                                    <div class="stat-value">72%</div>
+                                    <div class="stat-label">Reportes delictivos</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value">21</div>
+                                    <div class="stat-label">Incidentes/mes</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 style="margin: 1.5rem 0 1rem; color: var(--warning-color);">Barrios con delincuencia moderada</h3>
+                <div class="neighborhoods-grid">
+                    <div class="neighborhood-card">
+                        <div class="card-header danger-medium">
+                            <img src="IMG13.jpeg" alt="Barrio Santa Ana" class="card-header-image">
+                            <div class="card-header-overlay">
+                                <h3>Barrio Santa Ana</h3>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <ul>
+                                <li>Robos ocasionales a viviendas</li>
+                                <li>Problemas con ruido y fiestas</li>
+                                <li>Algunos reportes de vandalismo</li>
+                                <li>Iluminación regular en calles principales</li>
+                            </ul>
+                            <div class="card-stats">
+                                <div class="stat-item">
+                                    <div class="stat-value">42%</div>
+                                    <div class="stat-label">Reportes delictivos</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value">12</div>
+                                    <div class="stat-label">Incidentes/mes</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="neighborhood-card">
+                        <div class="card-header danger-medium">
+                            <img src="IMG14.jpeg" alt="Barrio San Francisco" class="card-header-image">
+                            <div class="card-header-overlay">
+                                <h3>Barrio San Francisco</h3>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <ul>
+                                <li>Robos menores en comercios</li>
+                                <li>Alguna presencia de pandillas</li>
+                                <li>Problemas con ebrios los fines de semana</li>
+                                <li>Presencia policial intermitente</li>
+                            </ul>
+                            <div class="card-stats">
+                                <div class="stat-item">
+                                    <div class="stat-value">38%</div>
+                                    <div class="stat-label">Reportes delictivos</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value">9</div>
+                                    <div class="stat-label">Incidentes/mes</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="neighborhood-card">
+                        <div class="card-header danger-medium">
+                            <img src="IMG15.jpeg" alt="Barrio Triángulo" class="card-header-image">
+                            <div class="card-header-overlay">
+                                <h3>Barrio Triángulo</h3>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <ul>
+                                <li>Presencia de pandillas juveniles</li>
+                                <li>Robos ocasionales a transeúntes</li>
+                                <li>Vandalismo en propiedad pública</li>
+                                <li>Problemas de ruido por las noches</li>
+                            </ul>
+                            <div class="card-stats">
+                                <div class="stat-item">
+                                    <div class="stat-value">45%</div>
+                                    <div class="stat-label">Reportes delictivos</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value">14</div>
+                                    <div class="stat-label">Incidentes/mes</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 style="margin: 1.5rem 0 1rem; color: var(--success-color);">Barrios con nula delincuencia</h3>
+                <div class="neighborhoods-grid">
+                    <div class="neighborhood-card">
+                        <div class="card-header danger-low">
+                            <img src="IMG16.jpeg" alt="Barrio La Mejorada" class="card-header-image">
+                            <div class="card-header-overlay">
+                                <h3>Barrio La Mejorada</h3>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <ul>
+                                <li>Vigilancia constante día y noche</li>
+                                <li>Buen alumbrado público</li>
+                                <li>Presencia policial permanente</li>
+                                <li>Cámaras de seguridad operativas</li>
+                            </ul>
+                            <div class="card-stats">
+                                <div class="stat-item">
+                                    <div class="stat-value">5%</div>
+                                    <div class="stat-label">Reportes delictivos</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value">2</div>
+                                    <div class="stat-label">Incidentes/mes</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="neighborhood-card">
+                        <div class="card-header danger-low">
+                            <img src="IMG17.jpeg" alt="Barrio Soledad" class="card-header-image">
+                            <div class="card-header-overlay">
+                                <h3>Barrio Soledad</h3>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <ul>
+                                <li>Comunidad tranquila y organizada</li>
+                                <li>Patrullajes comunitarios</li>
+                                <li>Buen estado de calles y alumbrado</li>
+                                <li>Vecinos participativos en seguridad</li>
+                            </ul>
+                            <div class="card-stats">
+                                <div class="stat-item">
+                                    <div class="stat-value">8%</div>
+                                    <div class="stat-label">Reportes delictivos</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value">3</div>
+                                    <div class="stat-label">Incidentes/mes</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="safety-tips">
+                <h2 class="section-title">Consejos de Seguridad</h2>
+                <p>Medidas preventivas según el nivel de riesgo de cada zona.</p>
+                
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <h3 class="tip-title">Zonas de alto riesgo</h3>
+                        <ul>
+                            <li>Evitar transitar solo, especialmente de noche</li>
+                            <li>No mostrar objetos de valor en la calle</li>
+                            <li>Conocer rutas alternas y zonas seguras cercanas</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <h3 class="tip-title">Zonas moderadas</h3>
+                        <ul>
+                            <li>Estar alerta en horarios críticos</li>
+                            <li>Viajar en grupo cuando sea posible</li>
+                            <li>Reportar actividades sospechosas</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <h3 class="tip-title">Para todos los barrios</h3>
+                        <ul>
+                            <li>Participar en redes vecinales de seguridad</li>
+                            <li>Conocer los números de emergencia locales</li>
+                            <li>Mantener buena comunicación con vecinos</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p class="copyright">© 2023 Mapa de Seguridad Halachó. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        const map = L.map('map').setView([20.4778, -90.0810], 14);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        const barriosPeligrosos = L.layerGroup();
+        const barriosModerados = L.layerGroup();
+        const barriosSeguros = L.layerGroup();
+        const puntosAyuda = L.layerGroup();
+
+        const ceibo = L.polygon([
+            [20.4820, -90.0850],
+            [20.4815, -90.0835],
+            [20.4800, -90.0840],
+            [20.4795, -90.0855],
+            [20.4805, -90.0860]
+        ], {
+            color: '#e74c3c',
+            fillOpacity: 0.4,
+            weight: 2
+        }).bindPopup('<b>Barrio Ceibo</b><br>Zona de alto riesgo<br>Robos frecuentes a viviendas y transeúntes')
+          .addTo(barriosPeligrosos);
+
+        const sanSalvador = L.polygon([
+            [20.4750, -90.0780],
+            [20.4745, -90.0765],
+            [20.4730, -90.0770],
+            [20.4735, -90.0785],
+            [20.4745, -90.0790]
+        ], {
+            color: '#e74c3c',
+            fillOpacity: 0.4,
+            weight: 2
+        }).bindPopup('<b>Barrio San Salvador</b><br>Zona de alto riesgo<br>Problemas con pandillas y robos')
+          .addTo(barriosPeligrosos);
+
+        const sanCosme = L.polygon([
+            [20.4700, -90.0830],
+            [20.4695, -90.0815],
+            [20.4680, -90.0820],
+            [20.4685, -90.0835],
+            [20.4695, -90.0840]
+        ], {
+            color: '#e74c3c',
+            fillOpacity: 0.4,
+            weight: 2
+        }).bindPopup('<b>Barrio San Cosme</b><br>Zona de alto riesgo<br>Robos de vehículos frecuentes')
+          .addTo(barriosPeligrosos);
+
+        const santaAna = L.polygon([
+            [20.4850, -90.0750],
+            [20.4845, -90.0735],
+            [20.4830, -90.0740],
+            [20.4835, -90.0755],
+            [20.4845, -90.0760]
+        ], {
+            color: '#f39c12',
+            fillOpacity: 0.3,
+            weight: 2
+        }).bindPopup('<b>Barrio Santa Ana</b><br>Zona de riesgo moderado<br>Robos ocasionales')
+          .addTo(barriosModerados);
+
+        const sanFrancisco = L.polygon([
+            [20.4780, -90.0730],
+            [20.4775, -90.0715],
+            [20.4760, -90.0720],
+            [20.4765, -90.0735],
+            [20.4775, -90.0740]
+        ], {
+            color: '#f39c12',
+            fillOpacity: 0.3,
+            weight: 2
+        }).bindPopup('<b>Barrio San Francisco</b><br>Zona de riesgo moderado<br>Problemas con ebrios los fines de semana')
+          .addTo(barriosModerados);
+
+        const triangulo = L.polygon([
+            [20.4730, -90.0750],
+            [20.4725, -90.0735],
+            [20.4710, -90.0740],
+            [20.4715, -90.0755],
+            [20.4725, -90.0760]
+        ], {
+            color: '#f39c12',
+            fillOpacity: 0.3,
+            weight: 2
+        }).bindPopup('<b>Barrio Triángulo</b><br>Zona de riesgo moderado<br>Presencia de pandillas juveniles')
+          .addTo(barriosModerados);
+
+        const centro = L.polygon([
+            [20.4785, -90.0815],
+            [20.4780, -90.0800],
+            [20.4765, -90.0805],
+            [20.4770, -90.0820],
+            [20.4780, -90.0825]
+        ], {
+            color: '#2ecc71',
+            fillOpacity: 0.3,
+            weight: 2
+        }).bindPopup('<b>Centro Histórico</b><br>Zona segura<br>Vigilancia constante')
+          .addTo(barriosSeguros);
+
+        const soledad = L.polygon([
+            [20.4720, -90.0880],
+            [20.4715, -90.0865],
+            [20.4700, -90.0870],
+            [20.4705, -90.0885],
+            [20.4715, -90.0890]
+        ], {
+            color: '#2ecc71',
+            fillOpacity: 0.3,
+            weight: 2
+        }).bindPopup('<b>Barrio Soledad</b><br>Zona segura<br>Comunidad tranquila y organizada')
+          .addTo(barriosSeguros);
+
+        L.marker([20.4785, -90.0805], {
+            icon: L.divIcon({
+                html: '<i class="fas fa-shield-alt" style="color: #3498db; font-size: 24px;"></i>',
+                className: 'custom-icon',
+                iconSize: [24, 24]
+            })
+        }).bindPopup('<b>Comisaría Municipal</b><br>Puesto policial principal<br>Tel: 999 123 4567')
+          .addTo(puntosAyuda);
+
+        L.marker([20.4760, -90.0830], {
+            icon: L.divIcon({
+                html: '<i class="fas fa-video" style="color: #9b59b6; font-size: 24px;"></i>',
+                className: 'custom-icon',
+                iconSize: [24, 24]
+            })
+        }).bindPopup('<b>Cámara de vigilancia</b><br>Monitoreo 24/7 del parque central')
+          .addTo(puntosAyuda);
+
+        L.marker([20.4800, -90.0780], {
+            icon: L.divIcon({
+                html: '<i class="fas fa-users" style="color: #1abc9c; font-size: 24px;"></i>',
+                className: 'custom-icon',
+                iconSize: [24, 24]
+            })
+        }).bindPopup('<b>Punto de ayuda comunitaria</b><br>Vecinos organizados para seguridad')
+          .addTo(puntosAyuda);
+
+        barriosPeligrosos.addTo(map);
+        barriosModerados.addTo(map);
+        barriosSeguros.addTo(map);
+        puntosAyuda.addTo(map);
+
+        const baseLayers = {
+            "Barrios peligrosos": barriosPeligrosos,
+            "Barrios moderados": barriosModerados,
+            "Barrios seguros": barriosSeguros,
+            "Puntos de ayuda": puntosAyuda
+        };
+
+        L.control.layers(null, baseLayers, {collapsed: false}).addTo(map);
+    </script>
+    <a href="index.html" class="menu-button" title="Volver al menú principal">🏠</a>
+</body>
+</html>

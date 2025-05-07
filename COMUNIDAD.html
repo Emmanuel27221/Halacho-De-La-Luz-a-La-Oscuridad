@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comunidad Unida - Halachó</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #27ae60;
+            --warning: #f39c12;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: white;
+            padding: 80px 0 60px;
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--accent);
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Roboto Slab', serif;
+            font-weight: 700;
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 2.8em;
+            line-height: 1.2;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.2em;
+            max-width: 700px;
+            margin: 15px auto 0;
+            opacity: 0.9;
+        }
+        
+        .initiative-card {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .initiative-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+        }
+        
+        .initiative-header {
+            background: var(--secondary);
+            color: white;
+            padding: 25px;
+            position: relative;
+        }
+        
+        .initiative-header::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--accent);
+        }
+        
+        .initiative-title {
+            margin: 0;
+            font-size: 1.8em;
+        }
+        
+        .initiative-body {
+            padding: 30px;
+        }
+        
+        .initiative-img {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+            object-fit: cover;
+            display: block;
+            border-bottom: 4px solid var(--accent);
+        }
+        
+        .participants {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 25px 0;
+        }
+        
+        .participant {
+            background-color: var(--light);
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .event-card {
+            background-color: white;
+            border-left: 5px solid var(--secondary);
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .event-card:hover {
+            transform: translateX(5px);
+        }
+        
+        .event-date {
+            font-weight: bold;
+            color: var(--secondary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .event-date::before {
+            content: "📅";
+            margin-right: 8px;
+        }
+        
+        .event-title {
+            margin-top: 0;
+            color: var(--primary);
+            font-size: 1.3em;
+        }
+        
+        .contact-form {
+            background-color: white;
+            padding: 40px;
+            border-radius: 12px;
+            margin-top: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        
+        .form-title {
+            margin-top: 0;
+            color: var(--primary);
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .form-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--accent);
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+        
+        .submit-btn {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1em;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .submit-btn:hover {
+            background-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .testimonial {
+            background-color: var(--light);
+            padding: 25px;
+            border-radius: 8px;
+            margin: 35px 0;
+            font-style: italic;
+            position: relative;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .testimonial::before {
+            content: """;
+            font-size: 60px;
+            color: var(--secondary);
+            opacity: 0.2;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-family: serif;
+        }
+        
+        .testimonial p {
+            position: relative;
+            z-index: 1;
+            margin: 0;
+        }
+        
+        .testimonial strong {
+            display: block;
+            margin-top: 15px;
+            font-style: normal;
+            color: var(--primary);
+        }
+        
+        .success-story {
+            background-color: rgba(39, 174, 96, 0.1);
+            padding: 25px;
+            border-radius: 8px;
+            margin: 35px 0;
+            border-left: 4px solid var(--success);
+        }
+        
+        .success-story h3 {
+            color: var(--success);
+            margin-top: 0;
+        }
+        
+        .success-story strong {
+            display: block;
+            margin-top: 15px;
+            color: var(--dark);
+        }
+        
+        .impact-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .stat-item {
+            flex: 1;
+            min-width: 200px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: var(--secondary);
+            margin: 10px 0;
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            color: #666;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 50px 0;
+            background: var(--dark);
+            color: white;
+            margin-top: 70px;
+        }
+        
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .footer-logo {
+            font-size: 1.8em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .footer-link {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-link:hover {
+            color: var(--secondary);
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 25px 0;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .social-icon:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+        
+        .cta-section {
+            background: var(--secondary);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            margin: 60px 0;
+        }
+        
+        .cta-title {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: var(--secondary);
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        
+        /* Botón de regreso al menú */
+        .menu-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            text-decoration: none;
+        }
+        
+        .menu-button:hover {
+            transform: scale(1.1);
+            background-color: var(--secondary);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            
+            .initiative-img {
+                max-height: 250px;
+            }
+            
+            .initiative-body, .contact-form {
+                padding: 20px;
+            }
+            
+            .stat-item {
+                min-width: 100%;
+            }
+            
+            .menu-button {
+                width: 50px;
+                height: 50px;
+                font-size: 25px;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Juntos por un Halachó Más Seguro</h1>
+            <p class="subtitle">Iniciativas vecinales que están transformando nuestra comunidad</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="initiative-card">
+            <div class="initiative-header">
+                <h2 class="initiative-title">Proyecto "Barrio Seguro" (Col. San Cosme)</h2>
+            </div>
+            <img src="IMG5.jpeg" alt="Vecinos vigilantes" class="initiative-img" style="height: 400px; object-fit: cover;">
+            <div class="initiative-body">
+                <p>30 casas con cámaras interconectadas en sistema de monitoreo colectivo que ha reducido los robos en un 60% desde 2023.</p>
+                
+                <div class="impact-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">60%</div>
+                        <div class="stat-label">Reducción en robos</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">30+</div>
+                        <div class="stat-label">Casas conectadas</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Satisfacción vecinal</div>
+                    </div>
+                </div>
+                
+                <h3>Logros destacados:</h3>
+                <ul>
+                    <li>Reducción del 60% en robos desde su implementación</li>
+                    <li>Sistema de cámaras interconectadas con monitoreo comunitario</li>
+                    <li>Modelo replicado en otras colonias de Halachó</li>
+                </ul>
+                
+                <div class="testimonial">
+                    <p>"Cuando empezamos con las cámaras, los ladrones dejaron de venir a nuestra colonia. Ahora tenemos paz y podemos dormir tranquilos sabiendo que entre todos nos cuidamos."</p>
+                    <strong>- Martin Kanun Mena: Coordinador del proyecto Barrio Seguro</strong>
+                </div>
+                
+                <h3>Próximos pasos:</h3>
+                <div class="participants">
+                    <span class="participant">Ampliar a 50 casas</span>
+                    <span class="participant">Sistema de alerta por WhatsApp</span>
+                    <span class="participant">Talleres de seguridad</span>
+                    <span class="participant">Mejor iluminación</span>
+                    <span class="participant">Patrullas vecinales</span>
+                </div>
+                
+                <p><strong>Contacto para unirse:</strong> Comité de Seguridad Col. San Cosme- 997 141 1906</p>
+            </div>
+        </div>
+        
+        <div class="initiative-card">
+            <div class="initiative-header">
+                <h2 class="initiative-title">Colectivo "Mujeres por Halachó"</h2>
+            </div>
+            <img src="IMG7.jpeg" alt="Mujeres en acción" class="initiative-img" style="height: 400px; object-fit: cover; object-position: center;">
+            <div class="initiative-body">
+                <p>Grupo de mujeres organizadas para mejorar la seguridad en sus comunidades mediante rondines y talleres de defensa personal.</p>
+                
+                <h3>Acciones principales:</h3>
+                <ul>
+                    <li><strong>Rondines nocturnos:</strong> Con silbatos y linternas en zonas de riesgo</li>
+                    <li><strong>Talleres de defensa personal:</strong> Impartidos por exmilitares los sábados</li>
+                    <li><strong>Red de apoyo:</strong> Sistema de acompañamiento para mujeres que deben salir de noche</li>
+                    <li><strong>Denuncia comunitaria:</strong> Mapeo de puntos peligrosos para mujeres</li>
+                </ul>
+                
+                <div class="success-story">
+                    <h3>Impacto en la comunidad</h3>
+                    <p>"Antes tenía miedo de salir a la calle después de las 8pm. Ahora con el grupo de mujeres nos sentimos más seguras y empoderadas. Hemos logrado que instalen mejor iluminación en nuestra colonia."</p>
+                    <strong>- María González, participante del colectivo</strong>
+                </div>
+                
+                <div class="participants">
+                    <span class="participant">Defensa personal</span>
+                    <span class="participant">Rondines vecinales</span>
+                    <span class="participant">Acompañamiento</span>
+                    <span class="participant">Talleres</span>
+                    <span class="participant">Empoderamiento</span>
+                </div>
+            </div>
+        </div>
+        
+        <h2 style="font-size: 2em; margin: 50px 0 30px; color: var(--primary); text-align: center; position: relative;">
+            <span style="background: white; padding: 0 20px; position: relative; z-index: 1;">Próximas Actividades</span>
+            <span style="position: absolute; top: 50%; left: 0; right: 0; height: 2px; background: #eee; z-index: 0;"></span>
+        </h2>
+        
+        <div class="event-card">
+            <div class="event-date">18 de Mayo 2025 | 17:00 hrs</div>
+            <h3 class="event-title">Taller de Defensa Personal para Mujeres</h3>
+            <p>Parque Central - Impartido por instructores certificados. Traer ropa cómoda.</p>
+            <div class="participants" style="margin-top: 15px;">
+                <span class="participant">Gratuito</span>
+               
+            </div>
+        </div>
+        
+        <div class="event-card">
+            <div class="event-date">Todos los miércoles | 19:00 hrs</div>
+            <h3 class="event-title">Reunión del Comité de Seguridad Vecinal</h3>
+            <p>Casa de la Cultura - Planificación de acciones comunitarias y evaluación de resultados.</p>
+        </div>
+        
+        <div class="event-card">
+            <div class="event-date">10 de Enero 2025 | 8:00 hrs</div>
+            <h3 class="event-title">Jornada de Instalación de Cámaras de Seguridad</h3>
+            <p>Colonia Santa Ana - Voluntarios técnicos ayudarán a instalar sistemas de vigilancia en hogares interesados.</p>
+            <div class="participants" style="margin-top: 15px;">
+        </div>
+        
+        <div class="cta-section">
+            <div class="container">
+                <h2 class="cta-title">¿Listo para hacer la diferencia en tu comunidad?</h2>
+                <p>Únete a nuestras iniciativas o comienza una nueva en tu colonia.</p>
+                <a href="#formulario" class="cta-button">Quiero Participar</a>
+            </div>
+        </div>
+        
+        <div class="contact-form" id="formulario">
+            <h2 class="form-title">¿Quieres iniciar un proyecto en tu colonia?</h2>
+            <p>Completa este formulario y te ayudaremos a organizarlo:</p>
+            
+            <form>
+                <div class="form-group">
+                    <label for="name">Nombre completo:</label>
+                    <input type="text" id="name" required placeholder="Ej. Juan Pérez López">
+                </div>
+                
+                <div class="form-group">
+                    <label for="colonia">Colonia:</label>
+                    <input type="text" id="colonia" required placeholder="Ej. Emiliano Zapata">
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Teléfono:</label>
+                    <input type="tel" id="phone" required placeholder="Ej. 985 123 4567">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Correo electrónico:</label>
+                    <input type="email" id="email" required placeholder="Ej. ejemplo@correo.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="idea">Describe tu propuesta de proyecto comunitario:</label>
+                    <textarea id="idea" rows="5" required placeholder="Ej. Queremos organizar un sistema de vigilancia vecinal en nuestra colonia..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="help">¿Qué tipo de apoyo necesitas?</label>
+                    <select id="help">
+                        <option>Asesoría para organización</option>
+                        <option>Conexión con otros vecinos</option>
+                        <option>Apoyo para conseguir recursos</option>
+                        <option>Capacitación en seguridad</option>
+                        <option>Otro</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="submit-btn">Enviar solicitud</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">Comunidad Unida Halachó</div>
+            <p>"La seguridad es responsabilidad de todos"</p>
+            
+            <div class="footer-links">
+                <a href="#" class="footer-link">Inicio</a>
+                <a href="#" class="footer-link">Proyectos</a>
+                <a href="#" class="footer-link">Eventos</a>
+                <a href="#" class="footer-link">Recursos</a>
+                <a href="#" class="footer-link">Contacto</a>
+            </div>
+            
+            <div class="social-icons">
+                <a href="#" class="social-icon">FB</a>
+                <a href="#" class="social-icon">TW</a>
+                <a href="#" class="social-icon">IG</a>
+                <a href="#" class="social-icon">YT</a>
+            </div>
+            
+            <p>Contacto general: seguridadhalacho@comunidad.org | Tel: 985 987 6543</p>
+            <p>© 2024 Comunidad Unida Halachó. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    
+    <a href="index.html" class="menu-button" title="Volver al menú principal">🏠</a>
+
+</body>
+</html>
